@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo Hospital del Móvil</title>
+    <style>
+        @page { size: 80mm 297mm; margin: 0; }
+        body {
+            width: 80mm;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 5mm;
+            font-size: 12px;
+            line-height: 1.3;
+            background-color: white;
+        }
+        .company-name {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .company-info {
+            flex: 1;
+            padding-right: 10px;
+        }
+        .company-info p {
+            font-size: 10px;
+            margin: 3px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+        .company-info img {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+        }
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+        .promo-banner {
+            margin: 15px 0;
+            text-align: center;
+        }
+        .promo-banner img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .receipt-header {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .receipt-header h3, .receipt-header h4 {
+            margin: 5px 0;
+            color: #333;
+        }
+        .receipt-header p {
+            margin: 5px 0;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th {
+            background-color: #f0f0f0;
+            padding: 8px;
+            font-size: 11px;
+            text-align: left;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        td {
+            padding: 8px;
+            font-size: 11px;
+            border: 1px solid #ddd;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f8f8f8;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #333;
+        }
+        .warranty {
+            margin-top: 20px;
+            font-size: 9px;
+            color: #666;
+            text-align: justify;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .firma {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        .firma p {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .social-media {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .social-media img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="company-name">{{NOMBRE_EMPRESA}}</div>
+    <div class="header">
+        <div class="company-info">
+            <p><img src="/api/placeholder/12/12" alt="Ubicación">{{DIRECCION}}</p>
+            <p><img src="/api/placeholder/12/12" alt="Email">{{EMAIL}}</p>
+            <p><img src="/api/placeholder/12/12" alt="Teléfono">{{TELEFONO}}</p>
+            <p><img src="/api/placeholder/12/12" alt="Web">{{SITIO_WEB}}</p>
+            <p><img src="/api/placeholder/12/12" alt="WhatsApp">{{WHATSAPP}}</p>
+        </div>
+        <div class="logo">
+            <img src="{{LOGO_URL}}" alt="Logo Hospital del Móvil">
+        </div>
+    </div>
+
+    <div class="promo-banner">
+        <img src="{{PROMO_URL}}" alt="Promociones">
+    </div>
+
+    <div class="receipt-header">
+        <h3>FOLIO: {{FOLIO_VENTA}}</h3>
+        <p>FECHA: {{FECHA_VENTA}}</p>
+        {{#if FOLIO_RECEPCION}}
+        <h4>FOLIO RECEPCIÓN: {{FOLIO_RECEPCION}}</h4>
+        {{/if}}
+        {{#if IMEI}}
+        <p>IMEI: {{IMEI}}</p>
+        {{/if}}
+        {{#if NO_SERIE}}
+        <p>No. Serie: {{NO_SERIE}}</p>
+        {{/if}}
+    </div>
+
+    <div class="section-title">DETALLE DE VENTA</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Precio Unitario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each DETALLE_VENTAS}}
+            <tr>
+                <td>{{this.concepto}}</td>
+                <td>{{this.precio}}</td>
+            </tr>
+            {{/each}}
+            <tr class="total-row">
+                <td>TOTAL DE LA VENTA</td>
+                <td>{{TOTAL_VENTA}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">PAGOS</div>
+    {{#if ANTICIPOS}}
+    <table>
+        <tr>
+            <td>Anticipo(s)</td>
+            <td>{{ANTICIPOS}}</td>
+        </tr>
+    </table>
+    {{/if}}
+    <table>
+        <thead>
+            <tr>
+                <th>Cantidad</th>
+                <th>Forma de Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each PAGOS}}
+            <tr>
+                <td>{{this.cantidad}}</td>
+                <td>{{this.forma}}</td>
+            </tr>
+            {{/each}}
+            <tr class="total-row">
+                <td>TOTAL DE PAGOS:</td>
+                <td>{{TOTAL_PAGOS}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="warranty">
+        {{#if APLICA_GARANTIA}}
+        APLICA GARANTÍA sobre refacciones instaladas. 
+        Fecha de Vencimiento Garantía: {{FECHA_VENCIMIENTO_GARANTIA}}
+        {{else}}
+        NO APLICA GARANTÍA. {{RAZON_NO_GARANTIA}}
+        {{/if}}
+        {{#if GARANTIA_COLATERAL}}
+        APLICA PARA GARANTÍA COLATERAL sobre las funciones revisadas previa recepción del mismo, hasta por 15 (quince días naturales) posteriores a la entrega del equipo.
+        {{else}}
+        NO APLICA PARA GARANTÍA COLATERAL al no revisar funciones al ingresar el equipo. {{RESULTADO_SERVICIO}} | {{DEBIDO_A}} | {{COMENTARIOS_RESULTADO}}
+        {{/if}}
+        El cliente cuenta con garantía de hasta tres meses en refacciones y accesorios adquiridos; {{FECHA_VENCIMIENTO_GARANTIA}}; solamente aplica contra defectos de fábrica e instalación. No aplica para equipos mojados, piezas de terceros, equipos con carcasas pandeadas, equipos que hayan sido abiertos posteriormente por terceros. Servicio Escalable: Cuando la falla reportada se haya reparado con el servicio de mantenimiento interno, sin necesidad de reemplazo de refacción, el cliente contará con 10 (diez) días hábiles para que, en caso de repetirse la falla, se le tome en cuenta el pago del servicio a cuenta de la reparación.
+    </div>
+
+    <div class="firma">
+        <p>Firma del Cliente: _____________________</p>
+    </div>
+
+    <div class="social-media">
+        <img src="{{REDES_SOCIALES_URL}}" alt="Redes Sociales">
+    </div>
+
+    <p>Observaciones: {{OBSERVACIONES}}</p>
+</body>
+</html>
