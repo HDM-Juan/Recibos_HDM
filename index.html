@@ -150,13 +150,8 @@
                 <th>Precio Unitario</th>
             </tr>
         </thead>
-        <tbody>
-            <<Start: SELECT(DETALLE_VENTAS[ID_DETALLE],[FOLIO##VENTA]=[Folio##Venta]) >>
-            <tr>
-                <td><<[Concepto]>></td>
-                <td><<[Precio Unitario]>></td>
-            </tr>
-            << end >>
+        <tbody id="detalleVentasBody">
+            <!-- Aquí se insertarán los detalles de venta -->
         </tbody>
     </table>
     <div class="total-row">
@@ -171,13 +166,8 @@
                 <th>Forma de Pago</th>
             </tr>
         </thead>
-        <tbody>
-            <<Start: SELECT(PAGOS[ID_PAGO],[FOLIO##VENTA]=[Folio##Venta]) >>
-            <tr>
-                <td><<[Cantidad]>></td>
-                <td><<[Forma de Pago]>></td>
-            </tr>
-            << end >>
+        <tbody id="pagosBody">
+            <!-- Aquí se insertarán los pagos -->
         </tbody>
     </table>
     <div class="total-row">
