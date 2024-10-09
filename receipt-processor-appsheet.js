@@ -31,7 +31,9 @@ function procesarSelect(contenido) {
     var match = regex.exec(contenido);
     
     if (match) {
-        return match[2].trim();
+        var template = match[2].trim();
+        // Reemplazar los marcadores de posición con valores vacíos
+        return template.replace(/<<\[(.*?)\]>>/g, "");
     }
     return '';
 }
