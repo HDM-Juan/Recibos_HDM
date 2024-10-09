@@ -1,113 +1,94 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo de Venta - Hospital del Móvil</title>
-    <link rel="stylesheet" href="https://hdm-juan.github.io/Recibos_HDM/styles.css">
-</head>
-<body>
-    <header>
-        <h1>RECIBO DE VENTA</h1>
-        <address>
-            <p id="nombreEmpresa"></p>
-            <p id="direccion"></p>
-            <p id="email"></p>
-            <p id="telefono"></p>
-            <p id="sitioWeb"></p>
-            <p id="whatsapp"></p>
-        </address>
-        <div style="float: right;">
-            <img id="logoUrl" alt="Logo Hospital del Móvil" style="width: 100px; height: auto;">
-        </div>
-    </header>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
 
-    <article>
-        <img id="publicidadUrl" alt="Promociones" style="width: 100%; max-width: 300px; height: auto;">
-        
-        <table class="meta">
-            <tr>
-                <th><span>FOLIO:</span></th>
-                <td><span id="folioVenta"></span></td>
-            </tr>
-            <tr>
-                <th><span>FECHA:</span></th>
-                <td><span id="fechaVenta"></span></td>
-            </tr>
-            <tr>
-                <th><span>FOLIO RECEPCIÓN:</span></th>
-                <td><span id="folioRecepcion"></span></td>
-            </tr>
-            <tr>
-                <th><span>IMEI:</span></th>
-                <td><span id="imei"></span></td>
-            </tr>
-            <tr>
-                <th><span>No. Serie:</span></th>
-                <td><span id="noSerie"></span></td>
-            </tr>
-        </table>
+.receipt {
+    width: 80mm;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-        <table class="inventory">
-            <thead>
-                <tr>
-                    <th><span>Concepto</span></th>
-                    <th><span>Precio Unitario</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <p><span>&lt;&lt;Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[Folio##Venta]) &gt;&gt;</span></p>
-                <tr>
-                    <td><span>&lt;&lt;[Concepto]&gt;&gt;</span></td>
-                    <td><span>$&lt;&lt;[Precio Unitario]&gt;&gt;</span></td>
-                </tr>
-                <p><span>&lt;&lt; end &gt;&gt;</span></p>
-            </tbody>
-        </table>
+.header {
+    text-align: center;
+    margin-bottom: 15px;
+}
 
-        <table class="balance">
-            <tr>
-                <th><span>TOTAL DE LA VENTA:</span></th>
-                <td><span id="totalVenta"></span></td>
-            </tr>
-        </table>
+.logo {
+    max-width: 60mm;
+    height: auto;
+    margin-bottom: 10px;
+}
 
-        <h2>PAGOS</h2>
-        <table class="inventory">
-            <thead>
-                <tr>
-                    <th><span>Cantidad</span></th>
-                    <th><span>Forma de Pago</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <p><span>&lt;&lt;Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[Folio##Venta]) &gt;&gt;</span></p>
-                <tr>
-                    <td><span>$&lt;&lt;[Cantidad]&gt;&gt;</span></td>
-                    <td><span>&lt;&lt;[Forma de Pago]&gt;&gt;</span></td>
-                </tr>
-                <p><span>&lt;&lt; end &gt;&gt;</span></p>
-            </tbody>
-        </table>
+h1 {
+    font-size: 18px;
+    margin: 5px 0;
+}
 
-        <table class="balance">
-            <tr>
-                <th><span>TOTAL DE PAGOS:</span></th>
-                <td><span id="totalPagos"></span></td>
-            </tr>
-        </table>
-    </article>
+p {
+    font-size: 12px;
+    margin: 3px 0;
+}
 
-    <aside>
-        <h1><span>Garantía y Observaciones</span></h1>
-        <div id="textoGarantia"></div>
-        <p>Observaciones: <span id="observaciones"></span></p>
-    </aside>
+.promo-banner img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
 
-    <footer>
-        <img id="redesSocialesUrl" alt="Redes Sociales" style="width: 100%; max-width: 200px; height: auto;">
-    </footer>
+.receipt-details {
+    margin-bottom: 15px;
+}
 
-    <script src="https://hdm-juan.github.io/Recibos_HDM/receipt-processor-appsheet.js"></script>
-</body>
-</html>
+h2 {
+    font-size: 14px;
+    margin: 10px 0;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+    font-size: 11px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.total {
+    font-weight: bold;
+    text-align: right;
+    margin: 10px 0;
+}
+
+.garantia, .observaciones {
+    margin-top: 15px;
+}
+
+h3 {
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-media {
+    max-width: 60mm;
+    height: auto;
+}
