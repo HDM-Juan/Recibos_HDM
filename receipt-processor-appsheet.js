@@ -88,4 +88,20 @@ window.onload = function() {
     console.log("Plantilla de Pagos:", pagosTemplate);
     var pagosHTML = eval('`' + pagosTemplate + '`');
     setElementHTML('pagosBody', pagosHTML);
-};
+window.addEventListener('load', function() {
+    if (window.translate_en) {
+        window.translate_en = function() { console.log('Función de traducción neutralizada'); };
+    }
+    var elements = document.querySelectorAll('*');
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        var oldAddEventListener = element.addEventListener;
+        element.addEventListener = function(type, listener, useCapture) {
+            if (type !== 'click') {  // Permitir eventos de clic
+                console.log('Intento de añadir evento ' + type + ' bloqueado');
+                return;
+            }
+            oldAddEventListener.call(this, type, listener, useCapture);
+        };
+    }
+});
