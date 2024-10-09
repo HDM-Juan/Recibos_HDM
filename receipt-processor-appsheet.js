@@ -26,21 +26,20 @@ function setElementHTML(id, html) {
     }
 }
 
-function procesarSelect(contenido) {
-    var regex = /<<Start: SELECT\((.*?)\) >>([\s\S]*?)<< end >>/g;
-    var resultado = '';
-    var match;
-
-    while ((match = regex.exec(contenido)) !== null) {
+function procesarSelect(contenido, datos) {
+    var regex = /<<Start: SELECT\((.*?)\) >>([\s\S]*?)<< end >>/;
+    var match = regex.exec(contenido);
+    
+    if (match) {
         var selectContent = match[2];
         // Reemplazar los marcadores de posición con los valores reales
-        selectContent = selectContent.replace(/<<\[(.*?)\]>>/g, function(match, p1) {
-            return '${' + p1 + '}';
+        Object.keys(datos).forEach(key => {
+            var placeholder = new RegExp('<<\\[' + key + '\\]>>', 'g');
+            selectContent = selectContent.replace(placeholder, datos[key]);
         });
-        resultado += selectContent;
+        return selectContent;
     }
-
-    return resultado;
+    return '';
 }
 
 window.onload = function() {
@@ -78,30 +77,12 @@ window.onload = function() {
     setElementSrc('redesSocialesUrl', datosObj.REDES_SOCIALES_URL);
 
     // Procesar DETALLE_VENTAS
-    var detalleVentasTemplate = procesarSelect(datosObj.DETALLE_VENTAS);
-    console.log("Plantilla de Detalle Ventas:", detalleVentasTemplate);
-    var detalleVentasHTML = eval('`' + detalleVentasTemplate + '`');
+    var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS, datosObj);
+    console.log("HTML de Detalle Ventas:", detalleVentasHTML);
     setElementHTML('detalleVentasBody', detalleVentasHTML);
 
     // Procesar PAGOS
-    var pagosTemplate = procesarSelect(datosObj.PAGOS);
-    console.log("Plantilla de Pagos:", pagosTemplate);
-    var pagosHTML = eval('`' + pagosTemplate + '`');
+    var pagosHTML = procesarSelect(datosObj.PAGOS, datosObj);
+    console.log("HTML de Pagos:", pagosHTML);
     setElementHTML('pagosBody', pagosHTML);
-window.addEventListener('load', function() {
-    if (window.translate_en) {
-        window.translate_en = function() { console.log('Función de traducción neutralizada'); };
-    }
-    var elements = document.querySelectorAll('*');
-    for (var i = 0; i < elements.length; i++) {
-        var element = elements[i];
-        var oldAddEventListener = element.addEventListener;
-        element.addEventListener = function(type, listener, useCapture) {
-            if (type !== 'click') {  // Permitir eventos de clic
-                console.log('Intento de añadir evento ' + type + ' bloqueado');
-                return;
-            }
-            oldAddEventListener.call(this, type, listener, useCapture);
-        };
-    }
-});
+};
