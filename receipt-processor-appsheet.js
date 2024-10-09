@@ -35,7 +35,7 @@ function procesarSelect(contenido, datos) {
         // Reemplazar los marcadores de posición con los valores reales
         Object.keys(datos).forEach(key => {
             var placeholder = new RegExp('<<\\[' + key + '\\]>>', 'g');
-            selectContent = selectContent.replace(placeholder, datos[key]);
+            selectContent = selectContent.replace(placeholder, datos[key] || '');
         });
         return selectContent;
     }
@@ -77,12 +77,30 @@ window.onload = function() {
     setElementSrc('redesSocialesUrl', datosObj.REDES_SOCIALES_URL);
 
     // Procesar DETALLE_VENTAS
-    var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS, datosObj);
-    console.log("HTML de Detalle Ventas:", detalleVentasHTML);
-    setElementHTML('detalleVentasBody', detalleVentasHTML);
+    if (datosObj.DETALLE_VENTAS) {
+        var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS, datosObj);
+        console.log("HTML de Detalle Ventas:", detalleVentasHTML);
+        if (detalleVentasHTML) {
+            setElementHTML('detalleVentasBody', detalleVentasHTML);
+        } else {
+            setElementHTML('detalleVentasBody', '<tr><td colspan="2">No hay detalles de venta disponibles</td></tr>');
+        }
+    } else {
+        console.log("No se encontraron datos para DETALLE_VENTAS");
+        setElementHTML('detalleVentasBody', '<tr><td colspan="2">No hay detalles de venta disponibles</td></tr>');
+    }
 
     // Procesar PAGOS
-    var pagosHTML = procesarSelect(datosObj.PAGOS, datosObj);
-    console.log("HTML de Pagos:", pagosHTML);
-    setElementHTML('pagosBody', pagosHTML);
+    if (datosObj.PAGOS) {
+        var pagosHTML = procesarSelect(datosObj.PAGOS, datosObj);
+        console.log("HTML de Pagos:", pagosHTML);
+        if (pagosHTML) {
+            setElementHTML('pagosBody', pagosHTML);
+        } else {
+            setElementHTML('pagosBody', '<tr><td colspan="2">No hay información de pagos disponible</td></tr>');
+        }
+    } else {
+        console.log("No se encontraron datos para PAGOS");
+        setElementHTML('pagosBody', '<tr><td colspan="2">No hay información de pagos disponible</td></tr>');
+    }
 };
