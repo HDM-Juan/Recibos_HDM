@@ -1,61 +1,44 @@
-// Función para obtener los parámetros de la URL
-function getQueryParams() {
-    const params = new URLSearchParams(window.location.search);
-    const queryParams = {};
-    for (const [key, value] of params.entries()) {
-        queryParams[key] = decodeURIComponent(value);
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+function setElementText(id, text) {
+    var element = document.getElementById(id);
+    if (element) {
+        element.textContent = text || '';
     }
-    return queryParams;
 }
 
-// Función para actualizar el recibo con los datos obtenidos de la URL
-function updateRecibo() {
-    const params = getQueryParams();
-
-    // Sucursal
-    document.getElementById("sucursalNombre").textContent = params.sucursalNombre;
-    document.getElementById("sucursalDireccion").textContent = params.sucursalDireccion;
-    document.getElementById("sucursalEmail").textContent = params.sucursalEmail;
-    document.getElementById("sucursalTel").textContent = params.sucursalTel;
-    document.getElementById("sucursalWhatsapp").textContent = params.sucursalWhatsapp;
-    document.getElementById("sucursalLogo").src = params.sucursalLogo;
-
-    // Promoción
-    document.getElementById("promoBanner").src = params.promoURL;
-
-    // Venta
-    document.getElementById("folioVenta").textContent = params.folioVenta;
-    document.getElementById("fechaVenta").textContent = params.fechaVenta;
-    document.getElementById("totalVenta").textContent = params.totalVenta;
-
-    // Lista de productos
-    const productosList = JSON.parse(params.productos);
-    const productosTbody = document.getElementById("productosList");
-    productosList.forEach(producto => {
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.textContent = producto;
-        tr.appendChild(td);
-        productosTbody.appendChild(tr);
-    });
-
-    // Pagos
-    document.getElementById("totalPagos").textContent = params.totalPagos;
-    const pagosList = JSON.parse(params.pagos);
-    const pagosTd = document.getElementById("pagosList");
-    pagosList.forEach(pago => {
-        const span = document.createElement("span");
-        span.textContent = pago + ", ";
-        pagosTd.appendChild(span);
-    });
-
-    // Redes sociales
-    document.getElementById("socialMediaURL").src = params.socialMediaURL;
+function setElementSrc(id, src) {
+    var element = document.getElementById(id);
+    if (element) {
+        element.src = src || '';
+    }
 }
 
-// Llamamos a la función cuando se carga la página
-window.onload = updateRecibo;
+function setElementHTML(id, html) {
+    var element = document.getElementById(id);
+    if (element) {
+        element.innerHTML = html || '';
+    }
+}
 
+function procesarSelect(contenido) {
+    var regex = /<<Start: SELECT\((.*?)\) >>([\s\S]*?)<< end >>/g;
+    var resultado = contenido;
+    var match;
+
+    while ((match = regex.exec(contenido)) !== null) {
+        var selectContent = match[2];
+        // Aquí puedes procesar el contenido del SELECT si es necesario
+        resultado = resultado.replace(match[0], selectContent);
+    }
+
+    return resultado;
+}
 
 window.onload = function() {
     var datosRaw = getUrlParameter('datos');
