@@ -9,6 +9,9 @@ function setElementText(id, text) {
     var element = document.getElementById(id);
     if (element) {
         element.textContent = text || '';
+        console.log(`Set text for ${id}:`, text);
+    } else {
+        console.warn(`Element with id ${id} not found`);
     }
 }
 
@@ -16,6 +19,9 @@ function setElementSrc(id, src) {
     var element = document.getElementById(id);
     if (element) {
         element.src = src || '';
+        console.log(`Set src for ${id}:`, src);
+    } else {
+        console.warn(`Element with id ${id} not found`);
     }
 }
 
@@ -23,18 +29,26 @@ function setElementHTML(id, html) {
     var element = document.getElementById(id);
     if (element) {
         element.innerHTML = html || '';
+        console.log(`Set HTML for ${id}:`, html);
+    } else {
+        console.warn(`Element with id ${id} not found`);
     }
 }
 
 function procesarSelect(contenido) {
+    console.log("Procesando SELECT:", contenido);
     var regex = /<<Start: SELECT\((.*?)\) >>([\s\S]*?)<< end >>/;
     var match = regex.exec(contenido);
     
     if (match) {
         var template = match[2].trim();
+        console.log("Template encontrado:", template);
         // Replace placeholders with empty strings for now
-        return template.replace(/<<\[(.*?)\]>>/g, "");
+        var result = template.replace(/<<\[(.*?)\]>>/g, "");
+        console.log("Resultado procesado:", result);
+        return result;
     }
+    console.log("No se encontró un patrón SELECT válido");
     return '';
 }
 
@@ -65,7 +79,7 @@ window.onload = function() {
     setElementText('fechaVenta', datosObj.FECHA_VENTA);
     setElementText('folioRecepcion', datosObj.FOLIO_RECEPCION);
     setElementText('imei', datosObj.IMEI);
-    setElementText('noSerie', procesarSelect(datosObj.NO_SERIE));
+    setElementText('noSerie', datosObj.NO_SERIE);
     setElementText('totalVenta', datosObj.TOTAL_VENTA);
     setElementText('totalPagos', datosObj.TOTAL_PAGOS);
     setElementText('textoGarantia', datosObj.TEXTO_GARANTIA);
