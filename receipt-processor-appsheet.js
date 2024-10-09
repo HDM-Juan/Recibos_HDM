@@ -26,18 +26,12 @@ function setElementHTML(id, html) {
     }
 }
 
-function procesarSelect(contenido, datos) {
+function procesarSelect(contenido) {
     var regex = /<<Start: SELECT\((.*?)\) >>([\s\S]*?)<< end >>/;
     var match = regex.exec(contenido);
     
     if (match) {
-        var selectContent = match[2];
-        // Reemplazar los marcadores de posición con los valores reales
-        Object.keys(datos).forEach(key => {
-            var placeholder = new RegExp('<<\\[' + key + '\\]>>', 'g');
-            selectContent = selectContent.replace(placeholder, datos[key] || '');
-        });
-        return selectContent;
+        return match[2].trim();
     }
     return '';
 }
@@ -78,7 +72,7 @@ window.onload = function() {
 
     // Procesar DETALLE_VENTAS
     if (datosObj.DETALLE_VENTAS) {
-        var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS, datosObj);
+        var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS);
         console.log("HTML de Detalle Ventas:", detalleVentasHTML);
         if (detalleVentasHTML) {
             setElementHTML('detalleVentasBody', detalleVentasHTML);
@@ -92,7 +86,7 @@ window.onload = function() {
 
     // Procesar PAGOS
     if (datosObj.PAGOS) {
-        var pagosHTML = procesarSelect(datosObj.PAGOS, datosObj);
+        var pagosHTML = procesarSelect(datosObj.PAGOS);
         console.log("HTML de Pagos:", pagosHTML);
         if (pagosHTML) {
             setElementHTML('pagosBody', pagosHTML);
