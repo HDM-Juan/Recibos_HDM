@@ -20,47 +20,25 @@ function setElementSrc(id, src) {
 }
 
 window.onload = function() {
-    var datos = getUrlParameter('datos').split('<<>>');
-    var datosObj = {};
+    var datosRaw = getUrlParameter('datos');
+    console.log("Datos crudos recibidos:", datosRaw);
 
+    // Mostrar datos crudos en la página
+    var debugElement = document.createElement('pre');
+    debugElement.textContent = "Datos crudos recibidos:\n" + datosRaw;
+    document.body.insertBefore(debugElement, document.body.firstChild);
+
+    var datos = datosRaw.split('<<>>');
+    console.log("Datos separados:", datos);
+
+    var datosObj = {};
     for (var i = 0; i < datos.length; i += 2) {
-        datosObj[datos[i].replace(/^<<|>>$/g, '')] = datos[i + 1];
+        var key = datos[i].replace(/^<<|>>$/g, '');
+        var value = datos[i + 1];
+        datosObj[key] = value;
+        console.log(key + ": " + value);
     }
 
-    setElementText('nombreEmpresa', datosObj.NOMBRE_EMPRESA);
-    setElementText('direccion', datosObj.DIRECCION);
-    setElementText('email', datosObj.EMAIL);
-    setElementText('telefono', datosObj.TELEFONO);
-    setElementText('sitioWeb', datosObj.SITIO_WEB);
-    setElementText('whatsapp', datosObj.WHATSAPP);
-    setElementSrc('logoUrl', datosObj.LOGO_URL);
-    setElementSrc('publicidadUrl', datosObj.PUBLICIDAD_URL);
-    setElementText('folioVenta', datosObj.FOLIO_VENTA);
-    setElementText('fechaVenta', datosObj.FECHA_VENTA);
-    setElementText('folioRecepcion', datosObj.FOLIO_RECEPCION);
-    setElementText('imei', datosObj.IMEI);
-    setElementText('noSerie', datosObj.NO_SERIE);
-    setElementText('totalVenta', datosObj.TOTAL_VENTA);
-    setElementText('totalPagos', datosObj.TOTAL_PAGOS);
-    setElementText('textoGarantia', datosObj.TEXTO_GARANTIA);
-    setElementText('observaciones', datosObj.OBSERVACIONES);
-    setElementSrc('redesSocialesUrl', datosObj.REDES_SOCIALES_URL);
-
-    // Procesar DETALLE_VENTAS
-    var detalleVentas = JSON.parse(datosObj.DETALLE_VENTAS);
-    var tbodyDetalleVentas = document.querySelector('#detalleVentas tbody');
-    detalleVentas.forEach(function(detalle) {
-        var row = tbodyDetalleVentas.insertRow();
-        row.insertCell(0).textContent = detalle.concepto;
-        row.insertCell(1).textContent = detalle.precio;
-    });
-
-    // Procesar PAGOS
-    var pagos = JSON.parse(datosObj.PAGOS);
-    var tbodyPagos = document.querySelector('#pagos tbody');
-    pagos.forEach(function(pago) {
-        var row = tbodyPagos.insertRow();
-        row.insertCell(0).textContent = pago.cantidad;
-        row.insertCell(1).textContent = pago.formaPago;
-    });
+    // Resto del código...
+    // (Mantén el código existente que establece los valores en el HTML)
 };
