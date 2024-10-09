@@ -32,7 +32,7 @@ function procesarSelect(contenido) {
     
     if (match) {
         var template = match[2].trim();
-        // Reemplazar los marcadores de posición con valores vacíos
+        // Replace placeholders with empty strings for now
         return template.replace(/<<\[(.*?)\]>>/g, "");
     }
     return '';
@@ -65,38 +65,30 @@ window.onload = function() {
     setElementText('fechaVenta', datosObj.FECHA_VENTA);
     setElementText('folioRecepcion', datosObj.FOLIO_RECEPCION);
     setElementText('imei', datosObj.IMEI);
-    setElementText('noSerie', datosObj.NO_SERIE);
+    setElementText('noSerie', procesarSelect(datosObj.NO_SERIE));
     setElementText('totalVenta', datosObj.TOTAL_VENTA);
     setElementText('totalPagos', datosObj.TOTAL_PAGOS);
     setElementText('textoGarantia', datosObj.TEXTO_GARANTIA);
     setElementText('observaciones', datosObj.OBSERVACIONES);
     setElementSrc('redesSocialesUrl', datosObj.REDES_SOCIALES_URL);
 
-    // Procesar DETALLE_VENTAS
-    if (datosObj.DETALLE_VENTAS) {
-        var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS);
-        console.log("HTML de Detalle Ventas:", detalleVentasHTML);
-        if (detalleVentasHTML) {
-            setElementHTML('detalleVentasBody', detalleVentasHTML);
-        } else {
-            setElementHTML('detalleVentasBody', '<tr><td colspan="2">No hay detalles de venta disponibles</td></tr>');
-        }
+    // Process DETALLE_VENTAS
+    console.log("Contenido de DETALLE_VENTAS:", datosObj.DETALLE_VENTAS);
+    var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS);
+    console.log("HTML de Detalle Ventas procesado:", detalleVentasHTML);
+    if (detalleVentasHTML) {
+        setElementHTML('detalleVentasBody', detalleVentasHTML);
     } else {
-        console.log("No se encontraron datos para DETALLE_VENTAS");
         setElementHTML('detalleVentasBody', '<tr><td colspan="2">No hay detalles de venta disponibles</td></tr>');
     }
 
-    // Procesar PAGOS
-    if (datosObj.PAGOS) {
-        var pagosHTML = procesarSelect(datosObj.PAGOS);
-        console.log("HTML de Pagos:", pagosHTML);
-        if (pagosHTML) {
-            setElementHTML('pagosBody', pagosHTML);
-        } else {
-            setElementHTML('pagosBody', '<tr><td colspan="2">No hay información de pagos disponible</td></tr>');
-        }
+    // Process PAGOS
+    console.log("Contenido de PAGOS:", datosObj.PAGOS);
+    var pagosHTML = procesarSelect(datosObj.PAGOS);
+    console.log("HTML de Pagos procesado:", pagosHTML);
+    if (pagosHTML) {
+        setElementHTML('pagosBody', pagosHTML);
     } else {
-        console.log("No se encontraron datos para PAGOS");
         setElementHTML('pagosBody', '<tr><td colspan="2">No hay información de pagos disponible</td></tr>');
     }
 };
