@@ -50,24 +50,18 @@ window.onload = function() {
     }
 
     // Establecer valores en el HTML
-    setElementText('nombreEmpresa', datosObj.NOMBRE_EMPRESA);
-    setElementText('direccion', datosObj.DIRECCION);
-    setElementText('email', datosObj.EMAIL);
-    setElementText('telefono', datosObj.TELEFONO);
-    setElementText('sitioWeb', datosObj.SITIO_WEB);
-    setElementText('whatsapp', datosObj.WHATSAPP);
-    setElementSrc('logoUrl', datosObj.LOGO_URL);
-    setElementSrc('publicidadUrl', datosObj.PUBLICIDAD_URL);
-    setElementText('folioVenta', datosObj.FOLIO_VENTA);
-    setElementText('fechaVenta', datosObj.FECHA_VENTA);
-    setElementText('folioRecepcion', datosObj.FOLIO_RECEPCION);
-    setElementText('imei', datosObj.IMEI);
-    setElementText('noSerie', datosObj.NO_SERIE);
-    setElementText('totalVenta', datosObj.TOTAL_VENTA);
-    setElementText('totalPagos', datosObj.TOTAL_PAGOS);
-    setElementText('textoGarantia', datosObj.TEXTO_GARANTIA);
-    setElementText('observaciones', datosObj.OBSERVACIONES);
-    setElementSrc('redesSocialesUrl', datosObj.REDES_SOCIALES_URL);
+    for (var key in datosObj) {
+        if (datosObj.hasOwnProperty(key)) {
+            var element = document.getElementById(key);
+            if (element) {
+                if (element.tagName === 'IMG') {
+                    element.src = datosObj[key];
+                } else {
+                    element.textContent = datosObj[key];
+                }
+            }
+        }
+    }
 
     // Procesar DETALLE_VENTAS
     var detalleVentasHTML = procesarSelect(datosObj.DETALLE_VENTAS);
