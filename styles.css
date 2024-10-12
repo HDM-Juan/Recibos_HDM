@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.receipt {
+    width: 80mm;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.logo {
+    max-width: 60mm;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+p {
+    font-size: 12px;
+    margin: 3px 0;
+}
+
+.promo-banner img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.receipt-details {
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 14px;
+    margin: 10px 0;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+    font-size: 11px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.total {
+    font-weight: bold;
+    text-align: right;
+    margin: 10px 0;
+}
+
+.garantia, .observaciones {
+    margin-top: 15px;
+}
+
+h3 {
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-media {
+    max-width: 60mm;
+    height: auto;
+}
