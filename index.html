@@ -1,94 +1,77 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Venta - Hospital del Móvil</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="receipt">
+        <div class="header">
+            <img id="logoUrl" alt="Logo Hospital del Móvil" class="logo">
+            <h1 id="nombreEmpresa"></h1>
+            <p id="direccion"></p>
+            <p id="email"></p>
+            <p id="telefono"></p>
+            <p id="sitioWeb"></p>
+            <p id="whatsapp"></p>
+        </div>
 
-.receipt {
-    width: 80mm;
-    margin: 0 auto;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+        <div class="promo-banner">
+            <img id="publicidadUrl" alt="Promociones">
+        </div>
 
-.header {
-    text-align: center;
-    margin-bottom: 15px;
-}
+        <div class="receipt-details">
+            <p><strong>FOLIO:</strong> <span id="folioVenta"></span></p>
+            <p><strong>FECHA:</strong> <span id="fechaVenta"></span></p>
+            <p><strong>FOLIO RECEPCIÓN:</strong> <span id="folioRecepcion"></span></p>
+            <p><strong>IMEI:</strong> <span id="imei"></span></p>
+            <p><strong>No. Serie:</strong> <span id="noSerie"></span></p>
+        </div>
 
-.logo {
-    max-width: 60mm;
-    height: auto;
-    margin-bottom: 10px;
-}
+        <h2>DETALLE DE VENTA</h2>
+        <table id="detalleVentasTable">
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Precio Unitario</th>
+                </tr>
+            </thead>
+            <tbody id="detalleVentasBody"></tbody>
+        </table>
 
-h1 {
-    font-size: 18px;
-    margin: 5px 0;
-}
+        <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="totalVenta"></span></p>
 
-p {
-    font-size: 12px;
-    margin: 3px 0;
-}
+        <h2>PAGOS</h2>
+        <table id="pagosTable">
+            <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Forma de Pago</th>
+                </tr>
+            </thead>
+            <tbody id="pagosBody"></tbody>
+        </table>
 
-.promo-banner img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 15px;
-}
+        <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="totalPagos"></span></p>
 
-.receipt-details {
-    margin-bottom: 15px;
-}
+        <div class="garantia">
+            <h3>Garantía</h3>
+            <p id="textoGarantia"></p>
+        </div>
 
-h2 {
-    font-size: 14px;
-    margin: 10px 0;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-}
+        <div class="observaciones">
+            <h3>Observaciones</h3>
+            <p id="observaciones"></p>
+        </div>
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 5px;
-    text-align: left;
-    font-size: 11px;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-.total {
-    font-weight: bold;
-    text-align: right;
-    margin: 10px 0;
-}
-
-.garantia, .observaciones {
-    margin-top: 15px;
-}
-
-h3 {
-    font-size: 13px;
-    margin: 5px 0;
-}
-
-.footer {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.social-media {
-    max-width: 60mm;
+        <div class="footer">
+            <img id="redesSocialesUrl" alt="Redes Sociales" class="social-media">
+        </div>
+    </div>
+    <script src="receipt-processor-appsheet.js"></script>
+</body>
+</html>
     height: auto;
 }
