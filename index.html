@@ -72,19 +72,19 @@
   <!-- Aquí irán las variables dinámicas que AppSheet debe llenar -->
   <div class="receipt">
     <div class="header">
-      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo" src="<<[Sucursal].[Logo Corporativo]>>">
-      <h1 id="NOMBRE_EMPRESA"><<[Sucursal].[Nombre Empresa]>></h1>
-      <p id="DIRECCION"><<[Sucursal].[Dirección Sucursal]>></p>
-      <p id="EMAIL"><<[Sucursal].[email]>></p>
-      <p id="TELEFONO"><<[Sucursal].[Teléfono Fijo]>></p>
-      <p id="SITIO_WEB"><<[Sucursal].[Sitio Web]>></p>
-      <p id="WHATSAPP"><<[Sucursal].[Whatssapp]>></p>
+      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo" src="">
+      <h1 id="NOMBRE_EMPRESA"></h1>
+      <p id="DIRECCION"></p>
+      <p id="EMAIL"></p>
+      <p id="TELEFONO"></p>
+      <p id="SITIO_WEB"></p>
+      <p id="WHATSAPP"></p>
     </div>
     
     <!-- Detalles de la venta -->
     <div class="receipt-details">
-      <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA"><<[Folio##Venta]>></span></p>
-      <p><strong>FECHA:</strong> <span id="FECHA_VENTA"><<[Fecha Venta]>></span></p>
+      <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA"></span></p>
+      <p><strong>FECHA:</strong> <span id="FECHA_VENTA"></span></p>
     </div>
     
     <!-- Detalle Venta -->
@@ -97,15 +97,10 @@
         </tr>
       </thead>
       <tbody>
-        <<Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[_thisrow].[Folio##Venta])>>
-        <tr>
-          <td><<[Concepto]>></td>
-          <td><<[Precio Unitario]>></td>
-        </tr>
-        <<End>>
+        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
       </tbody>
     </table>
-    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA"><<[Total Venta]>></span></p>
+    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA"></span></p>
     
     <!-- Pagos -->
     <h2>PAGOS</h2>
@@ -117,30 +112,25 @@
         </tr>
       </thead>
       <tbody>
-        <<Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[_thisrow].[Folio##Venta])>>
-        <tr>
-          <td><<[Cantidad]>></td>
-          <td><<[Forma de Pago]>></td>
-        </tr>
-        <<End>>
+        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
       </tbody>
     </table>
-    <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS"><<[Total Pagos]>></span></p>
+    <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS"></span></p>
     
     <!-- Observaciones y Garantía -->
     <div class="garantia">
       <h3>Garantía</h3>
-      <p id="TEXTO_GARANTIA"><<[Texto Garantía]>></p>
+      <p id="TEXTO_GARANTIA"></p>
     </div>
     
     <div class="observaciones">
       <h3>Observaciones</h3>
-      <p id="OBSERVACIONES"><<[Observaciones]>></p>
+      <p id="OBSERVACIONES"></p>
     </div>
     
     <!-- Footer -->
     <div class="footer">
-      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media" src="<<[Sucursal].[Redes Sociales]>>">
+      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media" src="">
     </div>
   </div>
 </body>
