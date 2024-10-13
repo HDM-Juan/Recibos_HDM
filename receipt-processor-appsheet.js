@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const apiUrl = `https://api.appsheet.com/api/v2/apps/9c718e94-b195-46f2-817a-4d15d11a804e/tables/VENTAS/rows?$filter=Folio eq '${folio}'`;
     const apiKey = "V2-D2okM-VqUu4-VfXr7-ke8mW-15ECk-GRdIz-zpezz-nNzJg";
 
+    // Hacer la llamada a la API de AppSheet
     fetch(apiUrl, {
       method: 'GET',
       headers: {
@@ -13,10 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(response => response.json())
     .then(data => {
-      // Supongamos que la API devuelve un array con las ventas
+      // Verificar los datos obtenidos
+      console.log('Datos obtenidos:', data);  // Verifica la estructura de los datos aquí
+
+      // Buscar la venta por el folio
       const venta = data.rows.find(row => row.Folio === folio);
 
-      // Llenar los campos dinámicos en el recibo
+      // Si no se encuentra la venta, manejar el error
+      if (!venta) {
+        console.error('No se encontró la venta con ese folio.');
+        document.body.innerHTML = "<p>No se encontró la venta correspondiente.</p>";
+        return;
+      }
+
+      // Rellenar los campos dinámicos en el recibo
       document.getElementById('FOLIO_VENTA').textContent = venta.Folio;
       document.getElementById('FECHA_VENTA').textContent = venta.Fecha;
       document.getElementById('TOTAL_VENTA').textContent = venta.TotalVenta;
@@ -53,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search);
   const folio = urlParams.get('folio');
 
+  // Si se proporciona un folio, cargar los datos correspondientes
   if (folio) {
     loadReceiptData(folio);
   } else {
