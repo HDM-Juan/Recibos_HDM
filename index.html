@@ -37,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        &lt;&lt;Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[Folio##Venta]) &gt;&gt;
+        &lt;&lt;Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[_thisrow].[Folio##Venta]) &gt;&gt;
         <tr>
           <td>&lt;&lt;[Concepto]&gt;&gt;</td>
           <td>&lt;&lt;[Precio Unitario]&gt;&gt;</td>
@@ -45,7 +45,7 @@
         &lt;&lt;End&gt;&gt;
       </tbody>
     </table>
-    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA">&lt;&lt;[TOTAL_VENTA]&gt;&gt;</span></p> 
+    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA">&lt;&lt;[Total Venta]&gt;&gt;</span></p> 
     <h2>PAGOS</h2>
     <table id="pagosTable">
       <thead>
@@ -55,7 +55,7 @@
         </tr>
       </thead>
       <tbody>
-        &lt;&lt;Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[Folio##Venta]) &gt;&gt;
+        &lt;&lt;Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[_thisrow].[Folio##Venta]) &gt;&gt;
         <tr>
           <td>&lt;&lt;[Cantidad]&gt;&gt;</td>
           <td>&lt;&lt;[Forma de Pago]&gt;&gt;</td>
