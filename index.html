@@ -3,31 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recibo   
- de Venta - Hospital del Móvil</title>
+  <title>Recibo de Venta - Hospital del Móvil</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="receipt-processor-appsheet.js"></script> <body>
-  &lt;&lt;[_ROWNUMBER]&gt;&gt;
-  <div class="receipt"> 
+  <style>
+    /* Definir el ancho de 80mm para la impresión */
+    @media print {
+      body {
+        width: 80mm;
+      }
+    }
+
+    /* Estilos básicos para recibo */
+    body {
+      font-family: Arial, sans-serif;
+      width: 80mm;
+      margin: 0;
+      padding: 0;
+    }
+
+    .receipt {
+      padding: 10px;
+      border: 1px solid #000;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      max-width: 60mm;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+
+    th, td {
+      padding: 5px;
+      border-bottom: 1px solid #000;
+      text-align: left;
+    }
+
+    .total {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .garantia, .observaciones {
+      margin-top: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  </style>
+  <script src="receipt-processor-appsheet.js"></script>
+</head>
+<body>
+  <!-- Aquí irán las variables dinámicas que AppSheet debe llenar -->
+  <div class="receipt">
     <div class="header">
-      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo" src="&lt;&lt;[Sucursal].[Logo Corporativo]&gt;&gt;"> 
-      <h1 id="NOMBRE_EMPRESA">&lt;&lt;[Sucursal].[Nombre Empresa]&gt;&gt;</h1> 
-      <p id="DIRECCION">&lt;&lt;[Sucursal].[Dirección Sucursal]&gt;&gt;</p> 
-      <p id="EMAIL">&lt;&lt;[Sucursal].[email]&gt;&gt;</p> 
-      <p id="TELEFONO">&lt;&lt;[Sucursal].[Teléfono Fijo]&gt;&gt;</p> 
-      <p id="SITIO_WEB">&lt;&lt;[Sucursal].[Sitio Web]&gt;&gt;</p> 
-      <p id="WHATSAPP">&lt;&lt;[Sucursal].[Whatssapp]&gt;&gt;</p> 
+      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo" src="<<[Sucursal].[Logo Corporativo]>>">
+      <h1 id="NOMBRE_EMPRESA"><<[Sucursal].[Nombre Empresa]>></h1>
+      <p id="DIRECCION"><<[Sucursal].[Dirección Sucursal]>></p>
+      <p id="EMAIL"><<[Sucursal].[email]>></p>
+      <p id="TELEFONO"><<[Sucursal].[Teléfono Fijo]>></p>
+      <p id="SITIO_WEB"><<[Sucursal].[Sitio Web]>></p>
+      <p id="WHATSAPP"><<[Sucursal].[Whatssapp]>></p>
     </div>
-    <div class="promo-banner">
-      <img id="PUBLICIDAD_URL" alt="Promociones" src="&lt;&lt;[Promo Ticket]&gt;&gt;"> 
-    </div>
+    
+    <!-- Detalles de la venta -->
     <div class="receipt-details">
-      <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA">&lt;&lt;[Folio##Venta]&gt;&gt;</span></p> 
-      <p><strong>FECHA:</strong> <span id="FECHA_VENTA">&lt;&lt;[Fecha Venta]&gt;&gt;</span></p> 
-      <p><strong>FOLIO RECEPCIÓN:</strong> <span id="FOLIO_RECEPCION">&lt;&lt;[Folio Recepción]&gt;&gt;</span></p> 
-      <p><strong>IMEI:</strong> <span id="IMEI">&lt;&lt;[IMEI]&gt;&gt;</span></p> 
-      <p><strong>No. Serie:</strong> <span id="NO_SERIE">&lt;&lt;[No. SerieE]&gt;&gt;</span></p> 
+      <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA"><<[Folio##Venta]>></span></p>
+      <p><strong>FECHA:</strong> <span id="FECHA_VENTA"><<[Fecha Venta]>></span></p>
     </div>
+    
+    <!-- Detalle Venta -->
     <h2>DETALLE DE VENTA</h2>
     <table id="detalleVentasTable">
       <thead>
@@ -37,15 +97,17 @@
         </tr>
       </thead>
       <tbody>
-        &lt;&lt;Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[_thisrow].[Folio##Venta]) &gt;&gt;
+        <<Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[_thisrow].[Folio##Venta])>>
         <tr>
-          <td>&lt;&lt;[Concepto]&gt;&gt;</td>
-          <td>&lt;&lt;[Precio Unitario]&gt;&gt;</td>
+          <td><<[Concepto]>></td>
+          <td><<[Precio Unitario]>></td>
         </tr>
-        &lt;&lt;End&gt;&gt;
+        <<End>>
       </tbody>
     </table>
-    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA">&lt;&lt;[Total Venta]&gt;&gt;</span></p> 
+    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA"><<[Total Venta]>></span></p>
+    
+    <!-- Pagos -->
     <h2>PAGOS</h2>
     <table id="pagosTable">
       <thead>
@@ -55,25 +117,30 @@
         </tr>
       </thead>
       <tbody>
-        &lt;&lt;Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[_thisrow].[Folio##Venta]) &gt;&gt;
+        <<Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[_thisrow].[Folio##Venta])>>
         <tr>
-          <td>&lt;&lt;[Cantidad]&gt;&gt;</td>
-          <td>&lt;&lt;[Forma de Pago]&gt;&gt;</td>
+          <td><<[Cantidad]>></td>
+          <td><<[Forma de Pago]>></td>
         </tr>
-        &lt;&lt;End&gt;&gt;
+        <<End>>
       </tbody>
     </table>
-    <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS">&lt;&lt;[Total Pagos]&gt;&gt;</span></p> 
+    <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS"><<[Total Pagos]>></span></p>
+    
+    <!-- Observaciones y Garantía -->
     <div class="garantia">
       <h3>Garantía</h3>
-      <p id="TEXTO_GARANTIA">&lt;&lt;[Texto Garantía]&gt;&gt;</p> 
+      <p id="TEXTO_GARANTIA"><<[Texto Garantía]>></p>
     </div>
+    
     <div class="observaciones">
       <h3>Observaciones</h3>
-      <p id="OBSERVACIONES">&lt;&lt;[Observaciones]&gt;&gt;</p> 
+      <p id="OBSERVACIONES"><<[Observaciones]>></p>
     </div>
+    
+    <!-- Footer -->
     <div class="footer">
-      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media" src="&lt;&lt;[Sucursal].[Redes Sociales]&gt;&gt;"> 
+      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media" src="<<[Sucursal].[Redes Sociales]>>">
     </div>
   </div>
 </body>
