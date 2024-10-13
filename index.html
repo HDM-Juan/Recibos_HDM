@@ -1,66 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo de Venta - Hospital del Móvil</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recibo   
+ de Venta - Hospital del Móvil</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="receipt">
-        <div class="header">
-            <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo">
-            <h1 id="NOMBRE_EMPRESA"></h1>
-            <p id="DIRECCION"></p>
-            <p id="EMAIL"></p>
-            <p id="TELEFONO"></p>
-            <p id="SITIO_WEB"></p>
-            <p id="WHATSAPP"></p>
-        </div>
-        <div class="promo-banner">
-            <img id="PUBLICIDAD_URL" alt="Promociones">
-        </div>
-        <div class="receipt-details">
-            <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA"></span></p>
-            <p><strong>FECHA:</strong> <span id="FECHA_VENTA"></span></p>
-            <p><strong>FOLIO RECEPCIÓN:</strong> <span id="FOLIO_RECEPCION"></span></p>
-            <p><strong>IMEI:</strong> <span id="IMEI"></span></p>
-            <p><strong>No. Serie:</strong> <span id="NO_SERIE"></span></p>
-        </div>
-        <h2>DETALLE DE VENTA</h2>
-        <table id="detalleVentasTable">
-            <thead>
-                <tr>
-                    <th>Concepto</th>
-                    <th>Precio Unitario</th>
-                </tr>
-            </thead>
-            <tbody id="DETALLE_VENTAS"></tbody>
-        </table>
-        <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA"></span></p>
-        <h2>PAGOS</h2>
-        <table id="pagosTable">
-            <thead>
-                <tr>
-                    <th>Cantidad</th>
-                    <th>Forma de Pago</th>
-                </tr>
-            </thead>
-            <tbody id="PAGOS"></tbody>
-        </table>
-        <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS"></span></p>
-        <div class="garantia">
-            <h3>Garantía</h3>
-            <p id="TEXTO_GARANTIA"></p>
-        </div>
-        <div class="observaciones">
-            <h3>Observaciones</h3>
-            <p id="OBSERVACIONES"></p>
-        </div>
-        <div class="footer">
-            <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media">
-        </div>
+  <div class="receipt">
+    <div class="header">
+      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo">
+      <h1 id="NOMBRE_EMPRESA">&lt;&lt;[NOMBRE_EMPRESA]&gt;&gt;</h1> 
+      <p id="DIRECCION">&lt;&lt;[DIRECCION]&gt;&gt;</p> 
+      <p id="EMAIL">&lt;&lt;[EMAIL]&gt;&gt;</p> 
+      <p id="TELEFONO">&lt;&lt;[TELEFONO]&gt;&gt;</p> 
+      <p id="SITIO_WEB">&lt;&lt;[SITIO_WEB]&gt;&gt;</p> 
+      <p id="WHATSAPP">&lt;&lt;[WHATSAPP]&gt;&gt;</p> 
     </div>
-    <script src="receipt-processor-appsheet.js"></script>
+    <div class="promo-banner">
+      <img id="PUBLICIDAD_URL" alt="Promociones">
+    </div>
+    <div class="receipt-details">
+      <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA">&lt;&lt;[FOLIO_VENTA]&gt;&gt;</span></p> 
+      <p><strong>FECHA:</strong> <span id="FECHA_VENTA">&lt;&lt;[FECHA_VENTA]&gt;&gt;</span></p> 
+      <p><strong>FOLIO RECEPCIÓN:</strong> <span id="FOLIO_RECEPCION">&lt;&lt;[FOLIO_RECEPCION]&gt;&gt;</span></p> 
+      <p><strong>IMEI:</strong> <span id="IMEI">&lt;&lt;[IMEI]&gt;&gt;</span></p> 
+      <p><strong>No. Serie:</strong> <span id="NO_SERIE">&lt;&lt;[NO_SERIE]&gt;&gt;</span></p> 
+    </div>
+    <h2>DETALLE DE VENTA</h2>
+    <table id="detalleVentasTable">
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th>Precio Unitario</th>
+        </tr>
+      </thead>
+      <tbody>
+        &lt;&lt;Start: SELECT(Detalle Venta[ID Operaciones],[Folio##Venta]=[Folio##Venta]) &gt;&gt;
+        <tr>
+          <td>&lt;&lt;[Concepto]&gt;&gt;</td>
+          <td>&lt;&lt;[Precio Unitario]&gt;&gt;</td>
+        </tr>
+        &lt;&lt;End&gt;&gt;
+      </tbody>
+    </table>
+    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA">&lt;&lt;[TOTAL_VENTA]&gt;&gt;</span></p> 
+    <h2>PAGOS</h2>
+    <table id="pagosTable">
+      <thead>
+        <tr>
+          <th>Cantidad</th>
+          <th>Forma de Pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        &lt;&lt;Start: SELECT(Pagos Venta[ID Pagos],[Folio##Venta]=[Folio##Venta]) &gt;&gt;
+        <tr>
+          <td>&lt;&lt;[Cantidad]&gt;&gt;</td>
+          <td>&lt;&lt;[Forma de Pago]&gt;&gt;</td>
+        </tr>
+        &lt;&lt;End&gt;&gt;
+      </tbody>
+    </table>
+    <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS">&lt;&lt;[TOTAL_PAGOS]&gt;&gt;</span></p> 
+    <div class="garantia">
+      <h3>Garantía</h3>
+      <p id="TEXTO_GARANTIA">&lt;&lt;[TEXTO_GARANTIA]&gt;&gt;</p> 
+    </div>
+    <div class="observaciones">
+      <h3>Observaciones</h3>
+      <p id="OBSERVACIONES">&lt;&lt;[OBSERVACIONES]&gt;&gt;</p> 
+    </div>
+    <div class="footer">
+      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media">
+    </div>
+  </div>
+  <script src="receipt-processor-appsheet.js"></script>
 </body>
 </html>
