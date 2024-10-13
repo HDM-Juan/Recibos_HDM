@@ -4,75 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recibo de Venta - Hospital del Móvil</title>
-  <link rel="stylesheet" href="styles.css">
   <style>
-    /* Definir el ancho de 80mm para la impresión */
     @media print {
-      body {
-        width: 80mm;
-      }
+      body { width: 80mm; }
     }
-
-    /* Estilos básicos para recibo */
     body {
       font-family: Arial, sans-serif;
       width: 80mm;
       margin: 0;
-      padding: 0;
-    }
-
-    .receipt {
       padding: 10px;
-      border: 1px solid #000;
+      box-sizing: border-box;
     }
-
+    .receipt {
+      border: 1px solid #000;
+      padding: 10px;
+    }
     .header {
       text-align: center;
       margin-bottom: 20px;
     }
-
     .logo {
       max-width: 60mm;
+      height: auto;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 10px;
     }
-
     th, td {
       padding: 5px;
       border-bottom: 1px solid #000;
       text-align: left;
+      font-size: 12px;
     }
-
     .total {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       text-align: right;
     }
-
     .garantia, .observaciones {
       margin-top: 20px;
+      font-size: 12px;
     }
-
     .footer {
       text-align: center;
       margin-top: 20px;
     }
-
-    img {
+    .social-media {
       max-width: 100%;
+      height: auto;
     }
   </style>
-  <script src="receipt-processor-appsheet.js"></script>
 </head>
 <body>
-  <!-- Aquí irán las variables dinámicas que AppSheet debe llenar -->
   <div class="receipt">
     <div class="header">
-      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo" src="">
+      <img id="LOGO_URL" alt="Logo Hospital del Móvil" class="logo">
       <h1 id="NOMBRE_EMPRESA"></h1>
       <p id="DIRECCION"></p>
       <p id="EMAIL"></p>
@@ -81,13 +69,13 @@
       <p id="WHATSAPP"></p>
     </div>
     
-    <!-- Detalles de la venta -->
     <div class="receipt-details">
       <p><strong>FOLIO:</strong> <span id="FOLIO_VENTA"></span></p>
       <p><strong>FECHA:</strong> <span id="FECHA_VENTA"></span></p>
+      <p id="FOLIO_RECEPCION"></p>
+      <p id="IMEI_INFO"></p>
     </div>
     
-    <!-- Detalle Venta -->
     <h2>DETALLE DE VENTA</h2>
     <table id="detalleVentasTable">
       <thead>
@@ -96,14 +84,12 @@
           <th>Precio Unitario</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
-      </tbody>
+      <tbody></tbody>
     </table>
     <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id="TOTAL_VENTA"></span></p>
     
-    <!-- Pagos -->
     <h2>PAGOS</h2>
+    <p id="ANTICIPOS"></p>
     <table id="pagosTable">
       <thead>
         <tr>
@@ -111,13 +97,10 @@
           <th>Forma de Pago</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Aquí se llenarán las filas dinámicamente con JavaScript -->
-      </tbody>
+      <tbody></tbody>
     </table>
     <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id="TOTAL_PAGOS"></span></p>
     
-    <!-- Observaciones y Garantía -->
     <div class="garantia">
       <h3>Garantía</h3>
       <p id="TEXTO_GARANTIA"></p>
@@ -128,10 +111,14 @@
       <p id="OBSERVACIONES"></p>
     </div>
     
-    <!-- Footer -->
     <div class="footer">
-      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media" src="">
+      <img id="REDES_SOCIALES_URL" alt="Redes Sociales" class="social-media">
     </div>
   </div>
+
+  <script>
+    // This script will be replaced by the AppSheet-generated JavaScript
+    // It's here as a placeholder for dynamic content population
+  </script>
 </body>
 </html>
