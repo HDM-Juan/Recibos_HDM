@@ -3,39 +3,70 @@ document.addEventListener('DOMContentLoaded', function() {
     const receiptId = urlParams.get('id');
 
     if (!receiptId) {
-        console.error('No se proporcionó ID de recibo');
+        showError('No se proporcionó ID de recibo');
         return;
     }
 
-    // Función para obtener los datos del recibo
+    fetchReceiptData(receiptId)
+        .then(populateReceipt)
+        .catch(error => showError('Error al cargar los datos del recibo: ' + error.message));
+
     function fetchReceiptData(id) {
-        // Decodificar el ID y reemplazar el guion por el hash
-        const originalId = decodeURIComponent(id).replace('-', '#');
-        
-        // Aquí deberíamos implementar la lógica para obtener los datos del recibo
-        // Ejemplo de datos (en una implementación real, esto vendría de una API o base de datos)
-        return {
-            folio: originalId,
-            fecha: '20231015',
-            total: '1500.00',
-            cliente: 'Juan Pérez',
-            // ... otros campos necesarios
-        };
+        // Esta función debe ser implementada para obtener los datos reales del recibo
+        // Por ahora, simularemos una llamada a API con una promesa y datos de ejemplo
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // Simulamos datos del recibo
+                // En una implementación real, estos datos vendrían de tu backend o API
+                const receiptData = {
+                    folio: id,
+                    fecha: '15/10/2023',
+                    total: '1500.00',
+                    cliente: 'Juan Pérez',
+                    detalleVenta: [
+                        { concepto: 'Servicio: Reparación de pantalla', precioUnitario: '1000.00' },
+                        { concepto: 'Repuesto: Pantalla LCD', precioUnitario: '500.00' }
+                    ],
+                    pagos: [
+                        { cantidad: '1000.00', formaPago: 'Efectivo' },
+                        { cantidad: '500.00', formaPago: 'Tarjeta de crédito' }
+                    ],
+                    observaciones: 'Cliente satisfecho con el servicio.'
+                };
+                resolve(receiptData);
+                // En caso de error, usar: reject(new Error('Mensaje de error'));
+            }, 1000); // Simulamos un retraso de 1 segundo
+        });
     }
 
-    const receiptData = fetchReceiptData(receiptId);
+    function populateReceipt(data) {
+        document.getElementById('FOLIO_VENTA').textContent = data.folio;
+        document.getElementById('FECHA_VENTA').textContent = data.fecha;
+        document.getElementById('TOTAL_VENTA').textContent = `$${data.total}`;
+        document.getElementById('NOMBRE_CLIENTE').textContent = data.cliente;
 
-    // Llenar los campos del recibo con los datos obtenidos
-    document.getElementById('FOLIO_VENTA').textContent = receiptData.folio;
-    document.getElementById('FECHA_VENTA').textContent = formatDate(receiptData.fecha);
-    document.getElementById('TOTAL_VENTA').textContent = '$' + receiptData.total;
-    document.getElementById('NOMBRE_CLIENTE').textContent = receiptData.cliente;
+        const detalleVentasTable = document.getElementById('detalleVentasTable');
+        data.detalleVenta.forEach(item => {
+            const row = detalleVentasTable.insertRow();
+            row.insertCell(0).textContent = item.concepto;
+            row.insertCell(1).textContent = `$${item.precioUnitario}`;
+        });
 
-    // Función para formatear la fecha (asumiendo que viene en formato YYYYMMDD)
-    function formatDate(dateString) {
-        if (dateString.length !== 8) return dateString;
-        return `${dateString.slice(6,8)}/${dateString.slice(4,6)}/${dateString.slice(0,4)}`;
+        const pagosTable = document.getElementById('pagosTable');
+        data.pagos.forEach(pago => {
+            const row = pagosTable.insertRow();
+            row.insertCell(0).textContent = `$${pago.cantidad}`;
+            row.insertCell(1).textContent = pago.formaPago;
+        });
+
+        document.getElementById('OBSERVACIONES').textContent = data.observaciones;
     }
 
-    // Aquí puedes agregar más lógica para llenar otros campos y tablas dinámicas
+    function showError(message) {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.textContent = message;
+        document.body.innerHTML = '';
+        document.body.appendChild(errorElement);
+    }
 });
