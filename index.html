@@ -10,15 +10,10 @@
             width: 80mm;
             margin: 0 auto;
             padding: 10mm;
-            font-size: 12px;
         }
         .receipt-header {
             text-align: center;
             margin-bottom: 20px;
-        }
-        .receipt-section {
-            margin: 10px 0;
-            padding: 5px;
         }
         @media print {
             @page {
@@ -31,42 +26,27 @@
 <body>
     <div class="receipt-header">
         <h2>Hospital del Móvil</h2>
-        <div>Folio Registro: <span id="id"></span></div>
-    </div>
-
-    <div class="receipt-section">
-        <div>Empresa: <span id="empresa"></span></div>
-        <div>Dirección: <span id="dir"></span></div>
-        <div>Teléfono: <span id="tel"></span></div>
+        <div id="folio_venta"></div>
+        <!-- Agregamos solo un campo nuevo -->
+        <div id="empresa"></div>
     </div>
 
     <script>
         window.onload = function() {
             var params = new URLSearchParams(window.location.search);
             
-            // Mapeo de parámetros a IDs
-            var paramMap = {
-                'id': 'id',
-                'empresa': 'nombreEmpresa',
-                'dir': 'direccion',
-                'tel': 'telefono'
-            };
+            // Procesar el folio como antes
+            var id = params.get('id');
+            if (id) {
+                document.getElementById('folio_venta').textContent = id;
+            }
             
-            // Asignar valores usando el mapeo
-            Object.entries(paramMap).forEach(([elementId, paramName]) => {
-                var element = document.getElementById(elementId);
-                var value = params.get(paramName);
-                if (element && value) {
-                    try {
-                        element.textContent = decodeURIComponent(value);
-                        console.log('Asignado ' + elementId + ': ' + value);
-                    } catch (e) {
-                        console.error('Error en ' + elementId, e);
-                    }
-                }
-            });
+            // Intentar obtener el nombre de la empresa
+            var empresa = params.get('nombreEmpresa');
+            if (empresa) {
+                document.getElementById('empresa').textContent = decodeURIComponent(empresa);
+            }
 
-            // Imprimir después de cargar
             setTimeout(function() {
                 window.print();
             }, 1000);
