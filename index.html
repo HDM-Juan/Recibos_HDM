@@ -10,32 +10,95 @@
             width: 80mm;
             margin: 0 auto;
             padding: 10mm;
+            font-size: 12px;
         }
         .receipt-header {
             text-align: center;
             margin-bottom: 20px;
+        }
+        .company-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .receipt-details {
+            margin: 15px 0;
+        }
+        .receipt-section {
+            margin: 10px 0;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
         }
         @media print {
             @page {
                 size: 80mm auto;
                 margin: 0;
             }
+            body {
+                width: 70mm;
+                padding: 5mm;
+            }
         }
     </style>
 </head>
 <body>
     <div class="receipt-header">
-        <h2>Hospital del Móvil</h2>
+        <div class="company-name" id="nombreEmpresa">Hospital del Móvil</div>
         <div id="folio_venta"></div>
+    </div>
+
+    <div class="receipt-section">
+        <div id="direccion"></div>
+        <div>Tel: <span id="telefono"></span></div>
+        <div>WhatsApp: <span id="whatsapp"></span></div>
+        <div>Email: <span id="email"></span></div>
+    </div>
+
+    <div class="receipt-section">
+        <div>Folio Venta: <span id="folioVenta"></span></div>
+        <div>Fecha: <span id="fechaVenta"></span></div>
+        <div>Folio Recepción: <span id="folioRecepcion"></span></div>
+    </div>
+
+    <div class="receipt-section">
+        <div>IMEI: <span id="imei"></span></div>
+        <div>No. Serie: <span id="noSerie"></span></div>
     </div>
 
     <script>
         window.onload = function() {
             var params = new URLSearchParams(window.location.search);
-            var id = params.get('id');
-            if (id) {
-                document.getElementById('folio_venta').textContent = id;
+            
+            // Función para asignar valores
+            function setElementContent(elementId, paramName) {
+                var element = document.getElementById(elementId);
+                var value = params.get(paramName);
+                if (element && value) {
+                    element.textContent = decodeURIComponent(value);
+                }
             }
+
+            // Asignar valores a los elementos
+            var fields = {
+                'folio_venta': 'id',
+                'nombreEmpresa': 'nombreEmpresa',
+                'direccion': 'direccion',
+                'telefono': 'telefono',
+                'whatsapp': 'whatsapp',
+                'email': 'email',
+                'folioVenta': 'folioVenta',
+                'fechaVenta': 'fechaVenta',
+                'folioRecepcion': 'folioRecepcion',
+                'imei': 'imei',
+                'noSerie': 'noSerie'
+            };
+
+            // Asignar cada campo
+            Object.entries(fields).forEach(([elementId, paramName]) => {
+                setElementContent(elementId, paramName);
+            });
+
+            // Imprimir después de cargar
             setTimeout(function() {
                 window.print();
             }, 1000);
