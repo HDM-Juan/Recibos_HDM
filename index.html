@@ -15,7 +15,16 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .debug {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
         @media print {
+            .debug {
+                display: none;
+            }
             @page {
                 size: 80mm auto;
                 margin: 0;
@@ -24,31 +33,59 @@
     </style>
 </head>
 <body>
+    <!-- Área de depuración -->
+    <div class="debug" id="debug-info">
+        Cargando...
+    </div>
+
     <div class="receipt-header">
         <h2>Hospital del Móvil</h2>
-        <div id="folio_venta"></div>
-        <!-- Agregamos solo un campo nuevo -->
-        <div id="empresa"></div>
+        <div>Folio: <span id="folio_venta"></span></div>
+        <div>Empresa: <span id="empresa">TEST EMPRESA</span></div>
     </div>
 
     <script>
         window.onload = function() {
-            var params = new URLSearchParams(window.location.search);
+            // Área de depuración
+            var debugDiv = document.getElementById('debug-info');
             
+            // Obtener y mostrar la URL completa
+            debugDiv.innerHTML = 'URL: ' + window.location.href + '<br>';
+            
+            // Obtener parámetros
+            var params = new URLSearchParams(window.location.search);
+            debugDiv.innerHTML += 'Parámetros encontrados:<br>';
+            
+            // Mostrar todos los parámetros recibidos
+            params.forEach(function(value, key) {
+                debugDiv.innerHTML += key + ': ' + value + '<br>';
+            });
+
             // Procesar el folio como antes
             var id = params.get('id');
             if (id) {
                 document.getElementById('folio_venta').textContent = id;
+                debugDiv.innerHTML += 'Folio procesado: ' + id + '<br>';
             }
             
-            // Intentar obtener el nombre de la empresa
+            // Intentar procesar empresa
             var empresa = params.get('nombreEmpresa');
             if (empresa) {
-                document.getElementById('empresa').textContent = decodeURIComponent(empresa);
+                try {
+                    var empresaDecodificada = decodeURIComponent(empresa);
+                    document.getElementById('empresa').textContent = empresaDecodificada;
+                    debugDiv.innerHTML += 'Empresa procesada: ' + empresaDecodificada + '<br>';
+                } catch (e) {
+                    debugDiv.innerHTML += 'Error al procesar empresa: ' + e + '<br>';
+                }
+            } else {
+                debugDiv.innerHTML += 'No se encontró parámetro nombreEmpresa<br>';
             }
 
+            // Retrasar la impresión para poder ver la depuración
             setTimeout(function() {
-                window.print();
+                debugDiv.innerHTML += 'Preparando impresión...<br>';
+                // window.print();  // Comentado temporalmente para depuración
             }, 1000);
         };
     </script>
