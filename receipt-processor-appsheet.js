@@ -1,9 +1,10 @@
 // script.js
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener parámetros de la URL
-    const params = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id'); // Mantener el parámetro id original
     
-    // Función para asignar valores a elementos
+    // Asignar valores a elementos
     function setElementContent(id, value) {
         const element = document.getElementById(id);
         if (element) {
@@ -15,34 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Asignar valores a elementos
-    setElementContent('folio_venta', params.get('folio_venta'));
-    setElementContent('folioVenta', params.get('folioVenta'));
-    setElementContent('fechaVenta', params.get('fechaVenta'));
-    setElementContent('nombreEmpresa', params.get('nombreEmpresa'));
-    setElementContent('direccion', params.get('direccion'));
-    setElementContent('email', params.get('email'));
-    setElementContent('telefono', params.get('telefono'));
-    setElementContent('whatsapp', params.get('whatsapp'));
-    setElementContent('publicidadURL', params.get('publicidadURL'));
-    setElementContent('folioRecepcion', params.get('folioRecepcion'));
-    setElementContent('imei', params.get('imei'));
-    setElementContent('noSerie', params.get('noSerie'));
-    setElementContent('totalVenta', params.get('totalVenta'));
-    setElementContent('totalPagos', params.get('totalPagos'));
-    setElementContent('textoGarantia', params.get('textoGarantia'));
-    setElementContent('firmaVenta', params.get('firmaVenta'));
-    setElementContent('observaciones', params.get('observaciones'));
+    // Asignar el id como estaba originalmente
+    setElementContent('folio_venta', id);
     
-    // Manejar las tablas
-    const detalleVenta = document.querySelector('#tablaDetalleVenta tbody');
-    if (detalleVenta) {
-        detalleVenta.innerHTML = decodeURIComponent(params.get('tablaDetalleVenta') || '');
+    // Manejar las tablas de la misma manera que antes
+    const detalleVenta = document.querySelector('#tablaDetalleVenta');
+    if (detalleVenta && urlParams.get('tablaDetalleVenta')) {
+        detalleVenta.innerHTML = decodeURIComponent(urlParams.get('tablaDetalleVenta'));
     }
     
-    const pagosVenta = document.querySelector('#tablaPagosVenta tbody');
-    if (pagosVenta) {
-        pagosVenta.innerHTML = decodeURIComponent(params.get('tablaPagosVenta') || '');
+    const pagosVenta = document.querySelector('#tablaPagosVenta');
+    if (pagosVenta && urlParams.get('tablaPagosVenta')) {
+        pagosVenta.innerHTML = decodeURIComponent(urlParams.get('tablaPagosVenta'));
     }
     
     // Imprimir automáticamente después de cargar
