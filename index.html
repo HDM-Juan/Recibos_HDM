@@ -3,58 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="print-color-adjust" content="exact">
-    <title>Recibo de Venta - Hospital del Móvil</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Recibo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 80mm;
+            margin: 0 auto;
+            padding: 10mm;
+        }
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        @media print {
+            @page {
+                size: 80mm auto;
+                margin: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- El resto de tu HTML se mantiene igual hasta el script -->
+    <div class="receipt-header">
+        <h2>Hospital del Móvil</h2>
+        <div id="folio_venta"></div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Obtener parámetros de la URL
-            const params = new URLSearchParams(window.location.search);
-            
-            // Función para asignar valores
-            function setElementContent(id, value) {
-                const element = document.getElementById(id);
-                if (element) {
-                    if (element.tagName.toLowerCase() === 'img') {
-                        element.src = value || '';
-                    } else {
-                        element.innerHTML = decodeURIComponent(value || '');
-                    }
-                }
-            }
-
-            // Asignar valores a los elementos
-            [
-                'folio_venta', 'folioVenta', 'fechaVenta', 'nombreEmpresa',
-                'direccion', 'email', 'telefono', 'whatsapp', 'publicidadURL',
-                'folioRecepcion', 'imei', 'noSerie', 'totalVenta', 'totalPagos',
-                'textoGarantia', 'firmaVenta', 'observaciones', 'redesSocialesUrl',
-                'receiptUrl'
-            ].forEach(id => {
-                setElementContent(id, params.get(id));
-            });
-
-            // Manejar las tablas
-            document.querySelector('#tablaDetalleVenta').innerHTML = 
-                decodeURIComponent(params.get('tablaDetalleVenta') || '');
-            document.querySelector('#tablaPagosVenta').innerHTML = 
-                decodeURIComponent(params.get('tablaPagosVenta') || '');
-        });
-
-        // Configuración de impresión
         window.onload = function() {
-            setTimeout(() => {
-                const mediaQueryList = window.matchMedia('print');
-                mediaQueryList.addListener(function(mql) {
-                    if (!mql.matches) {
-                        // Se canceló la impresión o terminó
-                        // Puedes agregar código aquí si necesitas hacer algo después de imprimir
-                    }
-                });
+            var params = new URLSearchParams(window.location.search);
+            var id = params.get('id');
+            if (id) {
+                document.getElementById('folio_venta').textContent = id;
+            }
+            setTimeout(function() {
                 window.print();
             }, 1000);
         };
