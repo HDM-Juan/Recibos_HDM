@@ -16,63 +16,57 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .debug-info {
-            background: #f0f0f0;
-            padding: 10px;
+        .receipt-section {
             margin: 10px 0;
-            font-family: monospace;
-            font-size: 10px;
+            padding: 5px;
         }
         @media print {
-            .debug-info {
-                display: none;
+            @page {
+                size: 80mm auto;
+                margin: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sección de depuración -->
-    <div class="debug-info" id="debug">
-        URL Parámetros:
-    </div>
-
     <div class="receipt-header">
         <h2>Hospital del Móvil</h2>
-        <div>Folio: <span id="folio_venta"></span></div>
-        <div>Empresa: <span id="nombreEmpresa"></span></div>
-        <div>Dirección: <span id="direccion"></span></div>
-        <div>Teléfono: <span id="telefono"></span></div>
+        <div>Folio Registro: <span id="id"></span></div>
+    </div>
+
+    <div class="receipt-section">
+        <div>Empresa: <span id="empresa"></span></div>
+        <div>Dirección: <span id="dir"></span></div>
+        <div>Teléfono: <span id="tel"></span></div>
     </div>
 
     <script>
         window.onload = function() {
-            // Obtener y mostrar todos los parámetros para depuración
             var params = new URLSearchParams(window.location.search);
-            var debugDiv = document.getElementById('debug');
-            debugDiv.innerHTML = 'URL Parámetros:<br>';
             
-            params.forEach(function(value, key) {
-                debugDiv.innerHTML += key + ': ' + value + '<br>';
-                console.log(key + ': ' + value); // También lo mostramos en la consola
-                
-                // Intentar asignar cada parámetro a su elemento
-                var element = document.getElementById(key);
-                if (element) {
+            // Mapeo de parámetros a IDs
+            var paramMap = {
+                'id': 'id',
+                'empresa': 'nombreEmpresa',
+                'dir': 'direccion',
+                'tel': 'telefono'
+            };
+            
+            // Asignar valores usando el mapeo
+            Object.entries(paramMap).forEach(([elementId, paramName]) => {
+                var element = document.getElementById(elementId);
+                var value = params.get(paramName);
+                if (element && value) {
                     try {
                         element.textContent = decodeURIComponent(value);
+                        console.log('Asignado ' + elementId + ': ' + value);
                     } catch (e) {
-                        console.error('Error decodificando ' + key, e);
+                        console.error('Error en ' + elementId, e);
                     }
                 }
             });
 
-            // Asignar el id como antes (ya que sabemos que esto funciona)
-            var id = params.get('id');
-            if (id) {
-                document.getElementById('folio_venta').textContent = id;
-            }
-
-            // Esperar antes de imprimir
+            // Imprimir después de cargar
             setTimeout(function() {
                 window.print();
             }, 1000);
