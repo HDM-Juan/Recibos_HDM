@@ -4,237 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recibo de Venta - Hospital del Móvil</title>
-    <style>
-        @page { size: 80mm 297mm; margin: 0; }
-        body {
-            width: 80mm;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 5mm;
-            font-size: 12px;
-            line-height: 1.3;
-            background-color: white;
-        }
-        .company-name {
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        .Receipt img{
-          max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-        .company-info {
-            flex: 1;
-            padding-right: 10px;
-        }
-        .company-info p {
-            font-size: 10px;
-            margin: 3px 0;
-            color: #666;
-        }
-        .promo-banner {
-            margin: 15px 0;
-            text-align: center;
-        }
-        .promo-banner img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-        .receipt-header {
-            background-color: #f8f8f8;
-            padding: 10px;
-            border-radius: 4px;
-            margin: 15px 0;
-            text-align: center;
-        }
-        .receipt-header h3, .receipt-header h4 {
-            margin: 5px 0;
-            color: #333;
-        }
-        .receipt-header p {
-            margin: 5px 0;
-            color: #666;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-        }
-        th, td {
-            padding: 8px;
-            font-size: 11px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        .total-row {
-            font-weight: bold;
-            background-color: #f8f8f8;
-        }
-        .section-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-            margin: 20px 0 10px 0;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #333;
-        }
-        .garantia {
-            margin-top: 10px;
-            font-size: 9px;
-            color: #666;
-            text-align: justify;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        .firma {
-          margin-top: 40px;
-          font-size: 9px;
-          color: #666;
-          text-align: left;
-          padding: 10px;
-          background-color: #f9f9f9;
-        }
-        .firmaVenta img {
-            max-width: 100%;
-            height: auto;
-        }
-        .avisos {
-            margin-top: 20px;
-            font-size: 10px;
-            padding: 10px;
-            color: #999;
-            text-align: center;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 10px;
-            color: #999;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-      <img src="https://i.imgur.com/jbcrBn7.jpg" alt="Encabezado de Recibo"> 
-      </div>
-    <div class="company-name" id=nombreEmpresa></div>
-            <div class="company-info">
-            <p id=direccion></p>
-            <p> Email: <span id=email></span></p>
-            <p> Tel.<span id=telefono></span></p>
-            <p> www.hospitaldelmovil.com.mx <span></p>
-            <p> WhatssApp<span id=whatsapp></span></p>
-        </div>
-     </div>
-
-    <div class="receipt-header">
-        <h3>FOLIO: <span id=folioVenta></span></h3>
-        <p>FECHA: <span id=fechaVenta></span></p>
-        <h4>FOLIO RECEPCIÓN: <span id=folioRecepcion></span></h4>
-        <p>IMEI: <span id=imei></span></p>
-        <p>No. Serie: <span id=noSerie></span></p>
-    </div>
+    <!-- Tu HTML actual sin la sección de style -->
     
-
-    <div class="promo-banner">
-        <img id=publicidadUrl alt="Promociones">
-    </div>
-
-    <h2>DETALLE DE VENTA</h2>
-    <table id=tablaDetalleVenta>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Concepto</th>
-          <th>Precio Unitario</th>
-          <th>Subtotal</th>
-        </tr>
-      </thead>
-      <tbody id=tablaDetalleVenta>
-      </tbody>
-    </table>
-    <p class="total"><strong>TOTAL DE LA VENTA:</strong> <span id=totalVenta></span></p> 
-    <h2>PAGOS</h2>
-    <table id=tablaPagosVenta>
-      <thead>
-        <tr>
-          <th>Cantidad</th>
-          <th>Forma de Pago</th>
-        </tr>
-      </thead>
-      <tbody id=tablaPagosVenta>
-      </tbody>
-    </table>
-    <p class="total"><strong>TOTAL DE PAGOS:</strong> <span id=totalPagos></span></p> 
-
-    <div class="garantia">
-      <h3>Garantía</h3>
-      <p id=textoGarantia></p> 
-         <p>Observaciones: <span id=observaciones></span></p>
-
-    <div class=signature> 
-      
-    <img id=firmaVenta alt="Firma Recibir Equipo/accesorios">
-    <p>____________________</p>
-    
-    </div>   
-       </br> 
-    <div class="Avisos">
-      <p>Conoce nuestro AVISO DE PRIVACIDAD en www.hospitaldelmovil.com.mx/aviso-de-privacidad/<p>
-      <p>Quejas y Sugerencias en <strong>administracion@hospitaldelmovil.com.mx<strong>
-    </div>
-
-    <div class="footer">
-        <img src="https://i.imgur.com/Hqy6qeU.jpg" alt="Redes Sociales" class="social-media">
-        <p id=folio_venta></p>
-    </div>
-    </div>
-
     <script>
-      document.getElementById("folio_venta").innerHTML ="<?= folio_venta ?>";
-      document.getElementById("folioVenta").innerHTML ="<?= folioVenta ?>";
-      document.getElementById("fechaVenta").innerHTML ="<?= fechaVenta ?>";
-      document.getElementById("nombreEmpresa").innerHTML ="<?= nombreEmpresa ?>";
-      document.getElementById("direccion").innerHTML ="<?= direccion ?>";
-      document.getElementById("email").innerHTML ="<?= email ?>";
-      document.getElementById("telefono").innerHTML ="<?= telefono ?>";
-      document.getElementById("whatsapp").innerHTML ="<?= whatsapp ?>";
-      document.getElementById("publicidadURL").src = "<?= publicidadURL ?>"; 
-      document.getElementById("folioRecepcion").innerHTML ="<?= folioRecepcion ?>";
-      document.getElementById("imei").innerHTML ="<?= imei ?>";
-      document.getElementById("noSerie").innerHTML ="<?= noSerie ?>";
-      document.getElementById("totalVenta").innerHTML ="<?= totalVenta ?>";
-      document.getElementById("totalPagos").innerHTML ="<?= totalPagos ?>";
-      document.getElementById("textoGarantia").innerHTML ="<?= textoGarantia ?>";
-      document.getElementById("firmaVenta").src = "<?= firmaVenta ?>"; 
-      document.getElementById("observaciones").innerHTML ="<?= observaciones ?>";
-      document.getElementById("redesSocialesUrl").src = "<?= redesSocialesUrl ?>"; 
-      document.getElementById("receiptUrl").src = "<?= receiptUrl ?>";
-      document.getElementById("tablaDetalleVenta").innerHTML = "<?= tablaDetalleVenta ?>";
-      document.getElementById("tablaPagosVenta").innerHTML = "<?= tablaPagosVenta ?>";  
-  </script>
-   <script>
-      window.onload = function(){
-        window.print();
-          }
-  </script> 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+            
+            // Función para asignar valores
+            function setElementContent(id, value) {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (element.tagName.toLowerCase() === 'img') {
+                        element.src = value || '';
+                    } else {
+                        element.innerHTML = decodeURIComponent(value || '');
+                    }
+                }
+            }
+
+            // Asignar valores a los elementos
+            [
+                'folio_venta', 'folioVenta', 'fechaVenta', 'nombreEmpresa',
+                'direccion', 'email', 'telefono', 'whatsapp', 'publicidadURL',
+                'folioRecepcion', 'imei', 'noSerie', 'totalVenta', 'totalPagos',
+                'textoGarantia', 'firmaVenta', 'observaciones', 'redesSocialesUrl',
+                'receiptUrl'
+            ].forEach(id => {
+                setElementContent(id, params.get(id));
+            });
+
+            // Manejar las tablas
+            document.querySelector('#tablaDetalleVenta tbody').innerHTML = 
+                decodeURIComponent(params.get('tablaDetalleVenta') || '');
+            document.querySelector('#tablaPagosVenta tbody').innerHTML = 
+                decodeURIComponent(params.get('tablaPagosVenta') || '');
+        });
+
+        // Imprimir automáticamente después de cargar todo
+        window.onload = function() {
+            setTimeout(() => {
+                window.print();
+            }, 1000);
+        };
+    </script>
 </body>
 </html>
